@@ -30,7 +30,23 @@ set ignorecase
 set smartcase
 set title
 set laststatus=2
-set statusline=%<%F\ %h%m%r%=[TYPE=%Y\ %{&ff}]\ %=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l/%L,%c%V%)\ %P
+set statusline=%<%F\ %h%m%r%=[%{&fo}]\ %=[TYPE=%Y\ %{&ff}]\ %=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l/%L,%c%V%)\ %P
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi statusline ctermfg=108 ctermbg=black
+  elseif a:mode == 'r'
+    hi statusline ctermfg=magenta ctermbg=black
+  else
+    hi statusline ctermbg=red
+  endif
+endfunction
+
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline ctermbg=black ctermfg=red
+
+" default the statusline to green when entering Vim
+hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 
 if has("autocmd") 
   autocmd! bufwritepost .vimrc source ~/.vimrc 
@@ -39,6 +55,12 @@ endif
 autocmd Filetype html source ~/.vim/html.vim 
 
 au BufNewFile,BufRead *.plt,.plot,.gnuplot setf gnuplot
+au BufWinLeave * silent! mkview
+au BufWinEnter * silent! loadview
+" augroup vimrc_autocmds
+"   autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
+"   autocmd BufEnter * match OverLength /\%74v.*/
+" augroup END
 
 augroup mkd
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
@@ -97,10 +119,12 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'path_html': '~/public_html/wiki/'}
 " Bindings
 """""""""""""""""""""""""
 let mapleader = ","
+
+" Two semicolons are easy to type.
+imap jj <Esc>
 map ,c :s/^/#/<CR> <Esc>:nohlsearch <CR>
 map ,u :s/^#//<CR> <Esc>:nohlsearch <CR>
-map ,no :set nonumber<CR>
-map ,nu :set number<CR>
+map ,nu :set invnumber<CR>
 map ,lc :s/^/%/<CR> <Esc>:nohlsearch <CR>
 map ,lu :s/^%//<CR> <Esc>:nohlsearch <CR>
 map ,pc :s/^/\/\//<CR> <Esc>:nohlsearch <CR>
@@ -148,14 +172,14 @@ augroup filetypedetect
   au BufNewFile,BufRead *.wiki set ft=dokuwiki
 augroup END 
 augroup MUTT
-  au BufRead ~/.mutt/temp/mutt* set spell " <-- vim 7 required
-  au BufRead ~/.mutt/temp/mutt* set nonu
-  au BufRead ~/.mutt/temp/mutt* nmap  <F5>  gqap
-  au BufRead ~/.mutt/temp/mutt* nmap  <F6>  gqqj
-  au BufRead ~/.mutt/temp/mutt* nmap  <F7>  kgqj
-  au BufRead ~/.mutt/temp/mutt* map!  <F5>  <ESC>gqapi
-  au BufRead ~/.mutt/temp/mutt* map!  <F6>  <ESC>gqqji
-  au BufRead ~/.mutt/temp/mutt* map!  <F7>  <ESC>kgqji
+au BufRead ~/.mutt/temp/mutt* set spell " <-- vim 7 required
+au BufRead ~/.mutt/temp/mutt* set nonu
+au BufRead ~/.mutt/temp/mutt* nmap  <F5>  gqap
+au BufRead ~/.mutt/temp/mutt* nmap  <F6>  gqqj
+au BufRead ~/.mutt/temp/mutt* nmap  <F7>  kgqj
+au BufRead ~/.mutt/temp/mutt* map!  <F5>  <ESC>gqapi
+au BufRead ~/.mutt/temp/mutt* map!  <F6>  <ESC>gqqji
+au BufRead ~/.mutt/temp/mutt* map!  <F7>  <ESC>kgqji
 "  au BufRead ~/.mutt/temp/mutt* nmap  <F3>  gqap
 "  au BufRead ~/.mutt/temp/mutt* nmap  <F4>  gqqj
 "  au BufRead ~/.mutt/temp/mutt* nmap  <F5>  kgqj
@@ -165,4 +189,3 @@ augroup MUTT
 augroup END
 
 let g:languagetool_jar = "/usr/share/languagetool/LanguageTool.jar"
-
