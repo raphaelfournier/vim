@@ -72,7 +72,13 @@ augroup END
 set t_Co=256
 let g:zenburn_alternate_Visual = 1
 colors zenburn
-:colorscheme zenburn
+" colors solarized
+" colorscheme solarized
+colorscheme zenburn
+" syntax enable
+" set background=dark
+" colorscheme solarized
+
 
 """""""""""""""""""""""""
 " Plugins
@@ -121,7 +127,6 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'path_html': '~/public_html/wiki/'}
 let mapleader = ","
 
 " Two semicolons are easy to type.
-imap jj <Esc>
 map ,c :s/^/#/<CR> <Esc>:nohlsearch <CR>
 map ,u :s/^#//<CR> <Esc>:nohlsearch <CR>
 map ,nu :set invnumber<CR>
@@ -145,6 +150,7 @@ nnoremap ;cord :normal i;cord<cr>
 nnoremap ;salu :normal i;salu<cr>
 nnoremap ;rega :normal i;rega<cr>
 inoremap ;; <esc>
+imap jj <Esc>
 
 nnoremap ,t :TlistToggle<cr>
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
@@ -165,6 +171,8 @@ iab _cad_ c'est-à-dire
 iab _pap_ pair-à-pair
 iab _id_ <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
 iab _ML_ Matthieu Latapy 
+iab _ac <<gtdAction "<++>" "<++>">>
+inoremap <c-j> <Esc>/<++><CR><Esc>cf>
 
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 au BufRead,BufNewFile *.rst set syntax=rest
