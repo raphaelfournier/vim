@@ -139,6 +139,8 @@ map ,au :s/^--//<CR> <Esc>:nohlsearch <CR>
 map ,fr :setlocal spell spelllang=fr<CR>
 map ,en :setlocal spell spelllang=en<CR>
 map ,ns :set nospell<CR>
+" decompte de mots latex
+map ,wc :w !detex \| wc -w<CR>
 " permet de ne pas retaper les longs chemins
 map ,ed :e <C-R>=expand("%:p:h") . "/" <CR>
 " mutt
