@@ -126,7 +126,6 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'path_html': '~/public_html/wiki/'}
 """""""""""""""""""""""""
 let mapleader = ","
 
-" Two semicolons are easy to type.
 map ,c :s/^/#/<CR> <Esc>:nohlsearch <CR>
 map ,u :s/^#//<CR> <Esc>:nohlsearch <CR>
 map ,nu :set invnumber<CR>
@@ -151,6 +150,12 @@ map! ;rega <esc>/^-- $<CR>kI<cr><cr>Regards,<esc>ggIHello,<cr><cr><esc>,en
 nnoremap ;cord :normal i;cord<cr>
 nnoremap ;salu :normal i;salu<cr>
 nnoremap ;rega :normal i;rega<cr>
+" vim-task
+inoremap <silent> <buffer> ,m <ESC>:call Toggle_task_status()<CR>i
+noremap <silent> <buffer> ,m :call Toggle_task_status()<CR>
+autocmd BufNewFile,BufRead todo.txt,*.task,*.tasks  setfiletype task
+autocmd BufNewFile,BufRead *.mdwn  setfiletype markdown
+" Two semicolons are easy to type.
 inoremap ;; <esc>
 imap jj <Esc>
 
@@ -199,3 +204,24 @@ au BufRead ~/.mutt/temp/mutt* map!  <F7>  <ESC>kgqji
 augroup END
 
 let g:languagetool_jar = "/usr/share/languagetool/LanguageTool.jar"
+" https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
+" Resize splits when the window is resized
+au VimResized * exe "normal! \<c-w>="
+" Easier to type, and I never use the default behavior.
+"noremap H ^
+"noremap L g_
+" It's 2011.
+noremap j gj
+noremap k gk
+" Fuck you, help key.
+noremap  <F1> :set invfullscreen<CR>
+inoremap <F1> <ESC>:set invfullscreen<CR>a
+
+" Fuck you too, manual key.
+nnoremap K <nop>
+" Better Completion
+set completeopt=longest,menuone,preview
+" Sudo to write
+cmap w!! w !sudo tee % >/dev/null
+
+
