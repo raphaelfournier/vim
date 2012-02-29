@@ -23,6 +23,8 @@ set ts=2
 " export html ok
 let html_use_css = 1
 set nojoinspaces
+"set mouse=a
+"set ttymouse=urxvt
 " completion
 set wildmenu
 set wildmode=list:longest,full
@@ -70,10 +72,11 @@ augroup END
 " Colors 
 """""""""""""""""""""""""
 set t_Co=256
-let g:zenburn_alternate_Visual = 1
+" let g:zenburn_alternate_Visual = 1
 colors zenburn
 " colors solarized
 " colorscheme solarized
+"colorscheme bubblegum
 colorscheme zenburn
 " syntax enable
 " set background=dark
@@ -107,12 +110,12 @@ set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 filetype plugin indent on
 set grepprg=grep\ -nH\ $*
-let g:tex_flavor = "latex"
 set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
 
 let s:spell_francais_iskeyword  = "@,48-57,_,192-255,39,Â½,Ã¦,Â¼,Ã†,-"
 let s:spell_english_iskeyword = "@,48-57,_,192-255,^192-255"
-imap <buffer> <leader>it <Plug>Tex_InsertItemOnThisLine
+
+let g:acp_behaviorSnipmateLength=1
 
 """""""""""""""""""""""""
 " VimViki
@@ -138,6 +141,7 @@ map ,au :s/^--//<CR> <Esc>:nohlsearch <CR>
 map ,fr :setlocal spell spelllang=fr<CR>
 map ,en :setlocal spell spelllang=en<CR>
 map ,ns :set nospell<CR>
+map <F2> :NERDTreeToggle<CR>
 " decompte de mots latex
 map ,wc :w !detex \| wc -w<CR>
 " permet de ne pas retaper les longs chemins
@@ -223,5 +227,3 @@ nnoremap K <nop>
 set completeopt=longest,menuone,preview
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
-
-

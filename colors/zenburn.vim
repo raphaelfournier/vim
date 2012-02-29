@@ -301,6 +301,9 @@ if exists("g:zenburn_alternate_Visual")
     " gui=none fixes weird highlight problem in at least GVim 7.0.66, thanks to Kurt Maier
     hi Visual          guifg=#000000 guibg=#71d3b4 gui=none
     hi VisualNOS       guifg=#000000 guibg=#71d3b4 gui=none
+    hi TabLineFill     ctermfg=187 ctermbg=234 gui=bold
+    hi TabLineSel      ctermfg=236 ctermbg=186 gui=bold
+    hi TabLine         ctermfg=235 ctermbg=108 gui=bold
 else
     " use default visual
     hi Visual          guifg=#233323 guibg=#71d3b4 gui=none
